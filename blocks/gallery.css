@@ -37,6 +37,12 @@
   margin: 31px 20px 30px 0px;
   width: 21px;
   height: 18px;
+  transition-property: opacity;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+.gallery__icon:hover {
+  opacity: 0.5;
 }
 @media screen and (max-width: 1100px) {
   .gallery {
