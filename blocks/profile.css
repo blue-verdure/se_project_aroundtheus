@@ -41,6 +41,7 @@
 
 .profile__add-button {
   border: 2px solid #ffffff;
+  border-radius: 2px;
   width: 150px;
   padding: 0px 0px 0px 0px;
   height: 50px;
@@ -97,6 +98,5 @@
 
   .profile__add-button {
     width: 280px;
-    border-radius: 2px;
   }
 }
