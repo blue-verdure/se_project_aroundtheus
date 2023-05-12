@@ -21,5 +21,7 @@
   }
   .header__logo {
     margin: 27px 0px 0px 27px;
+    width: 126px;
+    height: 24px;
   }
 }
