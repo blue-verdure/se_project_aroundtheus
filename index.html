@@ -50,96 +50,19 @@
         </section>
         <section class="content__gallery">
           <ul class="gallery">
-            <li class="gallery__item">
-              <img
-                class="gallery__image"
-                src="./images/yosemite-valley.png"
-                alt="Yosemite Valley"
-              />
-              <h2 class="gallery__title">Yosemite Valley</h2>
-              <button type="button" class="gallery__button">
-                <img
-                  class="gallery__icon"
-                  src="./images/heart.svg"
-                  alt="heart icon"
-                />
-              </button>
-            </li>
-            <li class="gallery__item">
-              <img
-                class="gallery__image"
-                src="./images/lake-louise.png"
-                alt="Lake Louise"
-              />
-              <h2 class="gallery__title">Lake Louise</h2>
-              <button type="button" class="gallery__button">
-                <img
-                  class="gallery__icon"
-                  src="./images/heart.svg"
-                  alt="heart icon"
-                />
-              </button>
-            </li>
-            <li class="gallery__item">
-              <img
-                class="gallery__image"
-                src="./images/bald-mountains.png"
-                alt="Bald Mountains"
-              />
-              <h2 class="gallery__title">Bald Mountains</h2>
-              <button type="button" class="gallery__button">
-                <img
-                  class="gallery__icon"
-                  src="./images/heart.svg"
-                  alt="heart icon"
-                />
-              </button>
-            </li>
-            <li class="gallery__item">
-              <img
-                class="gallery__image"
-                src="./images/latemar.png"
-                alt="Latemar"
-              />
-              <h2 class="gallery__title">Latemar</h2>
-              <button type="button" class="gallery__button">
-                <img
-                  class="gallery__icon"
-                  src="./images/heart.svg"
-                  alt="heart icon"
-                />
-              </button>
-            </li>
-            <li class="gallery__item">
-              <img
-                class="gallery__image"
-                src="./images/vanoise-national-park.png"
-                alt="Vanoise National Park"
-              />
-              <h2 class="gallery__title">Vanoise National Park</h2>
-              <button type="button" class="gallery__button">
-                <img
-                  class="gallery__icon"
-                  src="./images/heart.svg"
-                  alt="heart icon"
-                />
-              </button>
-            </li>
-            <li class="gallery__item">
-              <img
-                class="gallery__image"
-                src="./images/lago-di-braies.png"
-                alt="Lago di Braies"
-              />
-              <h2 class="gallery__title">Lago di Braies</h2>
-              <button type="button" class="gallery__button">
-                <img
-                  class="gallery__icon"
-                  src="./images/heart.svg"
-                  alt="heart icon"
-                />
-              </button>
-            </li>
+            <template id="item__template">
+              <li class="gallery__item">
+                <img class="gallery__image" src="" alt="" />
+                <h2 class="gallery__title"></h2>
+                <button type="button" class="gallery__button">
+                  <img
+                    class="gallery__icon"
+                    src="./images/heart.svg"
+                    alt="heart icon"
+                  />
+                </button>
+              </li>
+            </template>
           </ul>
         </section>
       </main>
@@ -160,6 +83,7 @@
             <input
               type="text"
               class="modal__input"
+              id="name-input"
               name="name"
               placeholder="Name"
               required
@@ -169,13 +93,14 @@
             <input
               type="text"
               class="modal__input"
+              id="job-input"
               name="description"
               placeholder="Description"
               required
               minlength="2"
               maxlength="200"
             />
-            <button class="modal__save-button" type="submit">Yes</button>
+            <button class="modal__save-button" type="submit">Save</button>
           </form>
         </div>
       </div>
