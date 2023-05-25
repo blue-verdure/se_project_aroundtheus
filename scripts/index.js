@@ -26,16 +26,25 @@ const initialCards = [
 ];
 let itemTemplate = document.querySelector("#item__template").content;
 let galleryList = document.querySelector(".gallery");
-function getGalleryElement(nm, lk) {
+let modal = document.querySelector(".modal");
+const editButton = document.querySelector(".profile__edit-button");
+const closeButton = document.querySelector(".modal__close-button");
+const formElement = document.querySelector(".modal__form");
+const nameInput = document.querySelector("#name-input");
+const jobInput = document.querySelector("#job-input");
+const profileName = document.querySelector(".profile__title");
+const profileJob = document.querySelector(".profile__description");
+
+function getGalleryElement(name, link) {
   let itemTemplate = document.querySelector("#item__template").content;
   let galleryItem = itemTemplate
     .querySelector(".gallery__item")
     .cloneNode(true);
   let galleryImage = galleryItem.querySelector(".gallery__image");
   let galleryTitle = galleryItem.querySelector(".gallery__title");
-  galleryImage.src = lk;
-  galleryImage.alt = nm;
-  galleryTitle.textContent = nm;
+  galleryImage.src = link;
+  galleryImage.alt = name;
+  galleryTitle.textContent = name;
   return galleryItem;
 }
 for (let i = 0; i < initialCards.length; i++) {
@@ -46,17 +55,9 @@ for (let i = 0; i < initialCards.length; i++) {
   galleryList.append(galleryItem);
 }
 
-let modal = document.querySelector(".modal");
-const editButton = document.querySelector(".profile__edit-button");
-const closeButton = document.querySelector(".modal__close-button");
-const formElement = document.querySelector(".modal__form");
-const nameInput = document.querySelector("#name-input");
-const jobInput = document.querySelector("#job-input");
-const profileName = document.querySelector(".profile__title");
-const profileJob = document.querySelector(".profile__description");
-nameInput.value = profileName.textContent;
-jobInput.value = profileJob.textContent;
 editButton.addEventListener("click", () => {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
   modal.classList.add("modal_opened");
 });
 closeButton.addEventListener("click", () => {
