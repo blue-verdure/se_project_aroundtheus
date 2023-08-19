@@ -48,7 +48,6 @@
 .gallery__icon:hover {
   opacity: 0.5;
 }
-
 .gallery__button {
   background-color: transparent;
   border: none;
@@ -69,17 +68,8 @@
   top: 20px;
   z-index: 2;
 }
-.gallery__like-button_active {
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
-  border-radius: 50%;
-  padding: 0px 0px 0px 0px;
-  margin: 0px 0px 0px 0px;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.gallery__icon_active {
+  content: url("../images/heart_active.svg");
 }
 @media screen and (max-width: 1100px) {
   .gallery {

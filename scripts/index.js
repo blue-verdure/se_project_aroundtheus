@@ -40,7 +40,6 @@ const placeInput = document.querySelector("#place-input");
 const linkInput = document.querySelector("#link-input");
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
-const galleryItems = document.querySelectorAll(".gallery__item");
 
 function getGalleryElement(name, link) {
   let itemTemplate = document.querySelector("#item__template").content;
@@ -58,6 +57,14 @@ function getGalleryElement(name, link) {
 initialCards.forEach((item) =>
   galleryList.append(getGalleryElement(item.name, item.link))
 );
+
+/*galleryItems.forEach((item) => {
+  likeButton = item.querySelector(".gallery__icon");
+  likeButton.addEventListener("click", () => {
+    likeButton.src = "./images/heart_active.svg";
+    console.log("likeButton.src");
+  });
+});*/
 
 /*for (let i = 0; i < initialCards.length; i++) {
   let galleryItem = getGalleryElement(
@@ -91,8 +98,33 @@ closeButtonAdd.addEventListener("click", () => {
 function formSubmitHandlerAdd(evt) {
   evt.preventDefault();
   galleryList.prepend(getGalleryElement(placeInput.value, linkInput.value));
+  let newLikeButton = galleryList.querySelector(".gallery__icon");
+  newLikeButton.addEventListener("click", () => {
+    newLikeButton.classList.toggle("gallery__icon_active");
+    console.log("please log");
+  });
   modal__add.classList.remove("modal_opened");
   placeInput.value = "";
   linkInput.value = "";
+  const galleryDelete = galleryList.querySelector(".gallery__delete-button");
+  galleryDelete.addEventListener("click", deleteCard);
 }
 formElementAdd.addEventListener("submit", formSubmitHandlerAdd);
+
+let galleryHearts = document.querySelectorAll(".gallery__icon");
+galleryHearts.forEach((item) => {
+  item.addEventListener("click", () => {
+    item.classList.toggle("gallery__icon_active");
+    console.log("please log");
+  });
+});
+
+function deleteCard(evt) {
+  evt.target.closest(".gallery__item").remove();
+}
+let galleryItems = document.querySelectorAll(".gallery__item");
+galleryItems.forEach((item) => {
+  const galleryDelete = item.querySelector(".gallery__delete-button");
+  galleryDelete.addEventListener("click", deleteCard);
+});
+console.log(galleryHearts);
