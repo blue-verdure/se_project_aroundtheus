@@ -61,6 +61,13 @@
                     alt="heart icon"
                   />
                 </button>
+                <button type="button" class="gallery__delete-button">
+                  <img
+                    class="gallery__delete-icon"
+                    src="./images/delete_button.svg"
+                    alt="delete icon"
+                  />
+                </button>
               </li>
             </template>
           </ul>
@@ -69,7 +76,7 @@
       <footer class="footer">
         <p class="footer__text">© 2022 Around The U.S.</p>
       </footer>
-      <div class="modal">
+      <div class="modal modal__edit">
         <div class="modal__container">
           <button class="modal__close-button" type="button">
             <img
@@ -104,6 +111,38 @@
           </form>
         </div>
       </div>
+      <div class="modal modal__add">
+        <div class="modal__container">
+          <button class="modal__close-button modal__close-button_add" type="button">
+            <img
+              class="modal__close-img"
+              src="./images/close_button.svg"
+              alt="Close icon"
+            />
+          </button>
+          <h2 class="modal__title">New Place</h2>
+          <form class="modal__form modal__form_add" name="add-form">
+            <input
+              type="text"
+              class="modal__input"
+              id="place-input"
+              name="name"
+              placeholder="Title"
+              required
+              minlength="2"
+              maxlength="30"
+            />
+            <input
+              type="url"
+              class="modal__input"
+              id="link-input"
+              name="link"
+              placeholder="Image URL"
+              required
+            />
+            <button class="modal__save-button modal__save-button_add" type="submit">Create</button>
+          </form>
+        </div>
     </div>
   </body>
 </html>

@@ -116,3 +116,6 @@
     margin: 0px 22px 25px 22px;
   }
 }
+.modal__add {
+  opacity: 1;
+}

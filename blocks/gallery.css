@@ -16,6 +16,7 @@
   width: 282px;
   background: #ffffff;
   border-radius: 10px;
+  position: relative;
 }
 
 .gallery__image {
@@ -54,7 +55,20 @@
   padding: 0px 0px 0px 0px;
   cursor: pointer;
 }
-
+.gallery__delete-button {
+  background-color: transparent;
+  border: none;
+  padding: 0px 0px 0px 0px;
+  cursor: pointer;
+  margin: 0px 0px 0px 0px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 2;
+}
 .gallery__like-button_active {
   background-color: #ffffff;
   border: 1px solid #ffffff;
