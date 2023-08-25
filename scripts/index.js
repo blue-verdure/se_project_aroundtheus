@@ -1,27 +1,27 @@
 const initialCards = [
   {
     name: "Yosemite Valley",
-    link: "./images/yosemite-valley.png",
+    link: "./images/yosemite-valley.jpg",
   },
   {
     name: "Lake Louise",
-    link: "./images/lake-louise.png",
+    link: "./images/lake-louise.jpg",
   },
   {
     name: "Bald Mountains",
-    link: "./images/bald-mountains.png",
+    link: "./images/bald-mountains.jpg",
   },
   {
     name: "Latemar",
-    link: "./images/latemar.png",
+    link: "./images/latemar.jpg",
   },
   {
     name: "Vanoise National Park",
-    link: "./images/vanoise-national-park.png",
+    link: "./images/vanoise-national-park.jpg",
   },
   {
     name: "Lago di Braies",
-    link: "./images/lago-di-braies.png",
+    link: "./images/lago-di-braies.jpg",
   },
 ];
 let itemTemplate = document.querySelector("#item__template").content;
@@ -40,6 +40,8 @@ const placeInput = document.querySelector("#place-input");
 const linkInput = document.querySelector("#link-input");
 const profileName = document.querySelector(".profile__title");
 const profileJob = document.querySelector(".profile__description");
+const imgView = document.querySelector(".imgview");
+const imgClose = document.querySelector(".imgview__close-button");
 
 function getGalleryElement(name, link) {
   let itemTemplate = document.querySelector("#item__template").content;
@@ -51,28 +53,14 @@ function getGalleryElement(name, link) {
   galleryImage.src = link;
   galleryImage.alt = name;
   galleryTitle.textContent = name;
+  const galleryDelete = galleryItem.querySelector(".gallery__delete-button");
+  galleryDelete.addEventListener("click", deleteCard);
   return galleryItem;
 }
 
 initialCards.forEach((item) =>
   galleryList.append(getGalleryElement(item.name, item.link))
 );
-
-/*galleryItems.forEach((item) => {
-  likeButton = item.querySelector(".gallery__icon");
-  likeButton.addEventListener("click", () => {
-    likeButton.src = "./images/heart_active.svg";
-    console.log("likeButton.src");
-  });
-});*/
-
-/*for (let i = 0; i < initialCards.length; i++) {
-  let galleryItem = getGalleryElement(
-    initialCards[i].name,
-    initialCards[i].link
-  );
-  galleryList.append(galleryItem);
-}*/
 
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
@@ -108,6 +96,11 @@ function formSubmitHandlerAdd(evt) {
   linkInput.value = "";
   const galleryDelete = galleryList.querySelector(".gallery__delete-button");
   galleryDelete.addEventListener("click", deleteCard);
+  const galleryImage = galleryList.querySelector(".gallery__image");
+  const galleryTitle = galleryList.querySelector(".gallery__title");
+  galleryImage.addEventListener("click", (evt) => {
+    popupImage(evt, galleryTitle.textContent);
+  });
 }
 formElementAdd.addEventListener("submit", formSubmitHandlerAdd);
 
@@ -115,16 +108,31 @@ let galleryHearts = document.querySelectorAll(".gallery__icon");
 galleryHearts.forEach((item) => {
   item.addEventListener("click", () => {
     item.classList.toggle("gallery__icon_active");
-    console.log("please log");
   });
 });
 
 function deleteCard(evt) {
   evt.target.closest(".gallery__item").remove();
 }
+function popupImage(evt, name) {
+  imgView.classList.add("imgview_opened");
+  imgView.querySelector(".imgview__image").src = evt.target.src;
+  imgView.querySelector(".imgview__image").alt = evt.target.alt;
+  let imgTitle = imgView.querySelector(".imgview__title");
+  imgTitle.textContent = name;
+}
 let galleryItems = document.querySelectorAll(".gallery__item");
 galleryItems.forEach((item) => {
   const galleryDelete = item.querySelector(".gallery__delete-button");
+  const galleryImage = item.querySelector(".gallery__image");
+  const galleryTitle = item.querySelector(".gallery__title");
+  console.log(galleryTitle.textContent);
   galleryDelete.addEventListener("click", deleteCard);
+  galleryImage.addEventListener("click", (evt) => {
+    popupImage(evt, galleryTitle.textContent);
+  });
 });
-console.log(galleryHearts);
+
+imgClose.addEventListener("click", () => {
+  imgView.classList.remove("imgview_opened");
+});

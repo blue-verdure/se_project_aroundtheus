@@ -16,7 +16,9 @@
   width: 282px;
   background: #ffffff;
   border-radius: 10px;
+  border-style: none;
   position: relative;
+  overflow: hidden;
 }
 
 .gallery__image {
