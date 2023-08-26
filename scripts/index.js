@@ -26,8 +26,8 @@ const initialCards = [
 ];
 let itemTemplate = document.querySelector("#item__template").content;
 let galleryList = document.querySelector(".gallery");
-let modal__edit = document.querySelector(".modal__edit");
-let modal__add = document.querySelector(".modal__add");
+let modalEdit = document.querySelector(".modal-edit");
+let modalAdd = document.querySelector(".modal-add");
 const editButton = document.querySelector(".profile__edit-button");
 const closeButton = document.querySelector(".modal__close-button");
 const closeButtonAdd = document.querySelector(".modal__close-button_add");
@@ -65,23 +65,23 @@ initialCards.forEach((item) =>
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  modal__edit.classList.add("modal_opened");
+  modalEdit.classList.add("modal_opened");
 });
 closeButton.addEventListener("click", () => {
-  modal__edit.classList.remove("modal_opened");
+  modalEdit.classList.remove("modal_opened");
 });
 function formSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  modal__edit.classList.remove("modal_opened");
+  modalEdit.classList.remove("modal_opened");
 }
 formElement.addEventListener("submit", formSubmitHandler);
 addButton.addEventListener("click", () => {
-  modal__add.classList.add("modal_opened");
+  modalAdd.classList.add("modal_opened");
 });
 closeButtonAdd.addEventListener("click", () => {
-  modal__add.classList.remove("modal_opened");
+  modalAdd.classList.remove("modal_opened");
 });
 function formSubmitHandlerAdd(evt) {
   evt.preventDefault();
@@ -91,7 +91,7 @@ function formSubmitHandlerAdd(evt) {
     newLikeButton.classList.toggle("gallery__icon_active");
     console.log("please log");
   });
-  modal__add.classList.remove("modal_opened");
+  modalAdd.classList.remove("modal_opened");
   placeInput.value = "";
   linkInput.value = "";
   const galleryDelete = galleryList.querySelector(".gallery__delete-button");
