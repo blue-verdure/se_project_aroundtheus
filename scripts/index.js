@@ -105,6 +105,16 @@ function handleMiscClick(evt) {
     evt.target.closest(".gallery__item").remove();
   }
 }
+function checkValidity(form, input) {
+  const errorElement = form.querySelector(`#${input.id}-error`);
+  if (!input.validity.valid) {
+    errorElement.textContent = input.validationMessage;
+    input.classList.add("modal__input_error-active");
+  } else {
+    errorElement.textContent = "";
+    input.classList.remove("modal__input_error-active");
+  }
+}
 function setInputListeners(form) {
   const inputList = Array.from(form.querySelectorAll(".modal__input"));
   inputList.forEach((input) => {
@@ -116,11 +126,11 @@ function setInputListeners(form) {
 function validationHandler() {
   const formList = Array.from(document.querySelectorAll(".modal__form"));
   formList.forEach((form) => {
-    form.addEventListener("submit", function(evt) => {
+    form.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
     setInputListeners(form);
-  }); 
+  });
 }
 
 initialCards.forEach((item) =>
@@ -141,3 +151,4 @@ addButton.addEventListener("click", () => {
   openModal(modalAdd);
 });
 formElementAdd.addEventListener("submit", handleAddSubmit);
+validationHandler();
