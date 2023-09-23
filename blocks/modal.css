@@ -64,7 +64,7 @@
   height: 27px;
   border-radius: 5px;
   border: none;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   padding: 0px 0px 13px 0px;
   font-family: "Inter", Arial, sans-serif;
   font-style: normal;
@@ -92,6 +92,18 @@
   color: #ffffff;
   transition: opacity 0.3s ease-in-out;
   cursor: pointer;
+}
+
+.modal__input-error {
+  color: #ff0000;
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 0px 0px 15px 0px;
+  height: 15px;
+  display: block;
 }
 
 .modal__save-button:hover {
