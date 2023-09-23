@@ -75,7 +75,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.modal__save-button {
+.modal__submit {
   margin: 12px 0px 0px 0px;
   padding: 0px 0px 0px 0px;
   width: 100%;
@@ -92,6 +92,16 @@
   color: #ffffff;
   transition: opacity 0.3s ease-in-out;
   cursor: pointer;
+}
+
+.modal__submit_disabled {
+  opacity: 0.5;
+  cursor: default;
+  background: #ffffff;
+  color: #000000;
+  border-color: #000000;
+  border-width: 1px;
+  border-style: solid;
 }
 
 .modal__input-error {

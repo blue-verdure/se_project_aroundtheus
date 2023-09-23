@@ -117,16 +117,17 @@ function checkValidity(form, input) {
 }
 function switchButtonState(inputList, button) {
   if (inputList.some((input) => !input.validity.valid)) {
-    button.classList.add("modal__button_disabled");
+    button.classList.add("modal__submit_disabled");
     button.disabled = true;
   } else {
-    button.classList.remove("modal__button_disabled");
+    button.classList.remove("modal__submit_disabled");
     button.disabled = false;
   }
 }
 function setInputListeners(form) {
   const inputList = Array.from(form.querySelectorAll(".modal__input"));
-  const button = form.querySelector(".modal__button");
+  const button = form.querySelector(".modal__submit");
+  console.log(button);
   switchButtonState(inputList, button);
   inputList.forEach((input) => {
     input.addEventListener("input", () => {
