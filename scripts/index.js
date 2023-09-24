@@ -86,7 +86,7 @@ function handleOverlayClose(evt) {
   }
 }
 function handleEscClose(evt) {
-  if (evt.key === "Escape") {
+  if (evt.key === "Escape" && document.querySelector(".modal_opened")) {
     const openedModal = document.querySelector(".modal_opened");
     closeModal(openedModal);
   }
