@@ -39,6 +39,9 @@ const linkInput = document.querySelector("#link-input");
 const profileName = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
 const page = document.querySelector(".page");
+const imgPreview = document.querySelector(".modal-preview");
+const imgPreviewTitle = imgPreview.querySelector(".modal__img-title");
+const imgPreviewImage = imgPreview.querySelector(".modal__image");
 
 function getGalleryElement(name, link) {
   const itemTemplate = document.querySelector("#item__template").content;
@@ -60,13 +63,14 @@ function handlePopupClose(evt) {
   }
 }
 function handleEscClose(evt) {
-  const openedModal = document.querySelector(".modal_opened");
-  if (evt.key === "Escape" && openedModal) {
-    closeModal(openedModal);
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
   }
 }
 function openModal(modal) {
-  console.log(modal);
   modal.classList.add("modal_opened");
   page.addEventListener("keydown", handleEscClose);
   modal.addEventListener("click", handlePopupClose);
@@ -89,13 +93,10 @@ function handleEditSubmit(evt) {
   closeModal(modalEdit);
 }
 function openImage(evt, name) {
-  const popup = document.querySelector(".modal-view");
-  const popupImage = popup.querySelector(".modal__image");
-  popupImage.src = evt.target.src;
-  popupImage.alt = evt.target.alt;
-  const imgTitle = popup.querySelector(".modal__img-title");
-  imgTitle.textContent = name;
-  openModal(popup);
+  imgPreviewImage.src = evt.target.src;
+  imgPreviewImage.alt = evt.target.alt;
+  imgPreviewTitle.textContent = name;
+  openModal(imgPreview);
 }
 
 function handleMiscClick(evt) {
