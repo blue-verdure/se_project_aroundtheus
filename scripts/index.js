@@ -30,15 +30,15 @@ const modalEdit = document.querySelector(".modal-edit");
 const modalAdd = document.querySelector(".modal-add");
 const editButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector(".profile__add-button");
-const formElementEdit = document.querySelector(".modal__form");
-const formElementAdd = document.querySelector(".modal__form_add");
+const formElementEdit = document.forms["edit-form"];
+const formElementAdd = document.forms["add-form"];
 const nameInput = document.querySelector("#name-input");
 const descInput = document.querySelector("#desc-input");
 const placeInput = document.querySelector("#place-input");
 const linkInput = document.querySelector("#link-input");
 const profileName = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__description");
-const imgView = document.querySelector(".modal-view");
+const page = document.querySelector(".page");
 
 function getGalleryElement(name, link) {
   const itemTemplate = document.querySelector("#item__template").content;
@@ -52,33 +52,7 @@ function getGalleryElement(name, link) {
   galleryTitle.textContent = name;
   return galleryItem;
 }
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-}
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-}
-function handleAddSubmit(evt) {
-  evt.preventDefault();
-  gallery.prepend(getGalleryElement(placeInput.value, linkInput.value));
-  closeModal(modalAdd);
-  placeInput.value = "";
-  linkInput.value = "";
-}
-function handleEditSubmit(evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileDesc.textContent = descInput.value;
-  closeModal(modalEdit);
-}
-function popupImage(evt, name) {
-  imgView.querySelector(".modal__image").src = evt.target.src;
-  imgView.querySelector(".modal__image").alt = evt.target.alt;
-  const imgTitle = imgView.querySelector(".modal__img-title");
-  imgTitle.textContent = name;
-  openModal(imgView);
-}
-function handleOverlayClose(evt) {
+function handlePopupClose(evt) {
   if (evt.target.classList.contains("modal_opened")) {
     closeModal(evt.target);
   } else if (evt.target.classList.contains("modal__close-img")) {
@@ -86,15 +60,48 @@ function handleOverlayClose(evt) {
   }
 }
 function handleEscClose(evt) {
-  if (evt.key === "Escape" && document.querySelector(".modal_opened")) {
-    const openedModal = document.querySelector(".modal_opened");
+  const openedModal = document.querySelector(".modal_opened");
+  if (evt.key === "Escape" && openedModal) {
     closeModal(openedModal);
   }
 }
+function openModal(modal) {
+  console.log(modal);
+  modal.classList.add("modal_opened");
+  page.addEventListener("keydown", handleEscClose);
+  modal.addEventListener("click", handlePopupClose);
+}
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  page.removeEventListener("keydown", handleEscClose);
+  modal.removeEventListener("click", handlePopupClose);
+}
+function handleAddSubmit(evt) {
+  evt.preventDefault();
+  gallery.prepend(getGalleryElement(placeInput.value, linkInput.value));
+  closeModal(modalAdd);
+  evt.target.reset();
+}
+function handleEditSubmit(evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileDesc.textContent = descInput.value;
+  closeModal(modalEdit);
+}
+function openImage(evt, name) {
+  const popup = document.querySelector(".modal-view");
+  const popupImage = popup.querySelector(".modal__image");
+  popupImage.src = evt.target.src;
+  popupImage.alt = evt.target.alt;
+  const imgTitle = popup.querySelector(".modal__img-title");
+  imgTitle.textContent = name;
+  openModal(popup);
+}
+
 function handleMiscClick(evt) {
   //handler for image popup, like button, and delete button
   if (evt.target.classList.contains("gallery__image")) {
-    popupImage(
+    openImage(
       evt,
       evt.target.closest(".gallery__item").querySelector(".gallery__title")
         .textContent
@@ -110,9 +117,7 @@ initialCards.forEach((item) =>
   gallery.append(getGalleryElement(item.name, item.link))
 );
 
-document.addEventListener("keydown", handleEscClose);
-document.addEventListener("click", handleOverlayClose);
-document.addEventListener("click", handleMiscClick);
+gallery.addEventListener("click", handleMiscClick);
 
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
