@@ -1,3 +1,4 @@
+import Card from "../components/Card.js";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -43,18 +44,18 @@ const imgPreview = document.querySelector(".modal-preview");
 const imgPreviewTitle = imgPreview.querySelector(".modal__img-title");
 const imgPreviewImage = imgPreview.querySelector(".modal__image");
 
-function getGalleryElement(name, link) {
-  const itemTemplate = document.querySelector("#item__template").content;
-  const galleryItem = itemTemplate
-    .querySelector(".gallery__item")
-    .cloneNode(true);
-  const galleryImage = galleryItem.querySelector(".gallery__image");
-  const galleryTitle = galleryItem.querySelector(".gallery__title");
-  galleryImage.src = link;
-  galleryImage.alt = name;
-  galleryTitle.textContent = name;
-  return galleryItem;
-}
+// function getGalleryElement(name, link) {
+//   const itemTemplate = document.querySelector("#item__template").content;
+//   const galleryItem = itemTemplate
+//     .querySelector(".gallery__item")
+//     .cloneNode(true);
+//   const galleryImage = galleryItem.querySelector(".gallery__image");
+//   const galleryTitle = galleryItem.querySelector(".gallery__title");
+//   galleryImage.src = link;
+//   galleryImage.alt = name;
+//   galleryTitle.textContent = name;
+//   return galleryItem;
+// }
 function handlePopupClose(evt) {
   if (evt.target.classList.contains("modal_opened")) {
     closeModal(evt.target);
@@ -82,7 +83,12 @@ function closeModal(modal) {
 }
 function handleAddSubmit(evt) {
   evt.preventDefault();
-  gallery.prepend(getGalleryElement(placeInput.value, linkInput.value));
+  const newGalleryItem = new Card(
+    { name: placeInput.value, link: linkInput.value },
+    "#item__template",
+    handleImageClick
+  );
+  gallery.prepend(newGalleryItem.getElement());
   closeModal(modalAdd);
   evt.target.reset();
 }
@@ -92,33 +98,40 @@ function handleEditSubmit(evt) {
   profileDesc.textContent = descInput.value;
   closeModal(modalEdit);
 }
-function openImage(evt, name) {
-  imgPreviewImage.src = evt.target.src;
-  imgPreviewImage.alt = evt.target.alt;
+// function openImage(evt, name) {
+//   imgPreviewImage.src = evt.target.src;
+//   imgPreviewImage.alt = evt.target.alt;
+//   imgPreviewTitle.textContent = name;
+//   openModal(imgPreview);
+// }
+
+// function handleMiscClick(evt) {
+//   //handler for image popup, like button, and delete button
+//   if (evt.target.classList.contains("gallery__image")) {
+//     openImage(
+//       evt,
+//       evt.target.closest(".gallery__item").querySelector(".gallery__title")
+//         .textContent
+//     );
+//   } else if (evt.target.classList.contains("gallery__icon")) {
+//     evt.target.classList.toggle("gallery__icon_active");
+//   } else if (evt.target.classList.contains("gallery__delete-icon")) {
+//     evt.target.closest(".gallery__item").remove();
+//   }
+// }
+
+function handleImageClick(name, link) {
+  imgPreviewImage.src = link;
+  imgPreviewImage.alt = name;
   imgPreviewTitle.textContent = name;
   openModal(imgPreview);
 }
+initialCards.forEach((item) => {
+  const galleryItem = new Card(item, "#item__template", handleImageClick);
+  gallery.append(galleryItem.getElement());
+});
 
-function handleMiscClick(evt) {
-  //handler for image popup, like button, and delete button
-  if (evt.target.classList.contains("gallery__image")) {
-    openImage(
-      evt,
-      evt.target.closest(".gallery__item").querySelector(".gallery__title")
-        .textContent
-    );
-  } else if (evt.target.classList.contains("gallery__icon")) {
-    evt.target.classList.toggle("gallery__icon_active");
-  } else if (evt.target.classList.contains("gallery__delete-icon")) {
-    evt.target.closest(".gallery__item").remove();
-  }
-}
-
-initialCards.forEach((item) =>
-  gallery.append(getGalleryElement(item.name, item.link))
-);
-
-gallery.addEventListener("click", handleMiscClick);
+// gallery.addEventListener("click", handleMiscClick);
 
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
