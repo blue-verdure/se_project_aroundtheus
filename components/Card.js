@@ -10,7 +10,7 @@ export default class Card {
     this._element
       .querySelector(".gallery__image")
       .addEventListener("click", () => {
-        this._handleImageClick();
+        this._handleImageClick(this._name, this._link);
       });
     this._element
       .querySelector(".gallery__delete-icon")
@@ -23,16 +23,6 @@ export default class Card {
         this._handleLikeClick();
       });
   }
-
-  // _handleImageClick() {
-  //   const popup = document.querySelector(".modal-preview");
-  //   const popupImage = popup.querySelector(".modal-preview__image");
-  //   const popupCaption = popup.querySelector(".modal-preview__caption");
-  //   popupImage.src = this._link;
-  //   popupImage.alt = this._name;
-  //   popupCaption.textContent = this._name;
-  //   popup.classList.add("modal_opened");
-  // }
 
   _handleLikeClick() {
     this._element

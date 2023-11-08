@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -44,18 +45,6 @@ const imgPreview = document.querySelector(".modal-preview");
 const imgPreviewTitle = imgPreview.querySelector(".modal__img-title");
 const imgPreviewImage = imgPreview.querySelector(".modal__image");
 
-// function getGalleryElement(name, link) {
-//   const itemTemplate = document.querySelector("#item__template").content;
-//   const galleryItem = itemTemplate
-//     .querySelector(".gallery__item")
-//     .cloneNode(true);
-//   const galleryImage = galleryItem.querySelector(".gallery__image");
-//   const galleryTitle = galleryItem.querySelector(".gallery__title");
-//   galleryImage.src = link;
-//   galleryImage.alt = name;
-//   galleryTitle.textContent = name;
-//   return galleryItem;
-// }
 function handlePopupClose(evt) {
   if (evt.target.classList.contains("modal_opened")) {
     closeModal(evt.target);
@@ -98,27 +87,6 @@ function handleEditSubmit(evt) {
   profileDesc.textContent = descInput.value;
   closeModal(modalEdit);
 }
-// function openImage(evt, name) {
-//   imgPreviewImage.src = evt.target.src;
-//   imgPreviewImage.alt = evt.target.alt;
-//   imgPreviewTitle.textContent = name;
-//   openModal(imgPreview);
-// }
-
-// function handleMiscClick(evt) {
-//   //handler for image popup, like button, and delete button
-//   if (evt.target.classList.contains("gallery__image")) {
-//     openImage(
-//       evt,
-//       evt.target.closest(".gallery__item").querySelector(".gallery__title")
-//         .textContent
-//     );
-//   } else if (evt.target.classList.contains("gallery__icon")) {
-//     evt.target.classList.toggle("gallery__icon_active");
-//   } else if (evt.target.classList.contains("gallery__delete-icon")) {
-//     evt.target.closest(".gallery__item").remove();
-//   }
-// }
 
 function handleImageClick(name, link) {
   imgPreviewImage.src = link;
@@ -131,8 +99,6 @@ initialCards.forEach((item) => {
   gallery.append(galleryItem.getElement());
 });
 
-// gallery.addEventListener("click", handleMiscClick);
-
 editButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   descInput.value = profileDesc.textContent;
@@ -143,3 +109,20 @@ addButton.addEventListener("click", () => {
   openModal(modalAdd);
 });
 formElementAdd.addEventListener("submit", handleAddSubmit);
+
+const validationOptions = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit",
+  inactiveButtonClass: "modal__submit_disabled",
+  inputErrorClass: "modal__input_error-active",
+  errorClass: "modal__error_visible",
+};
+
+const formList = Array.from(
+  document.querySelectorAll(validationOptions.formSelector)
+);
+formList.forEach((form) => {
+  const formValidator = new FormValidator(validationOptions, form);
+  formValidator.enableValidation();
+});
