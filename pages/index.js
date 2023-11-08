@@ -124,5 +124,8 @@ const formList = Array.from(
 );
 formList.forEach((form) => {
   const formValidator = new FormValidator(validationOptions, form);
+  form.addEventListener("reset", () => {
+    formValidator.resetValidation();
+  });
   formValidator.enableValidation();
 });

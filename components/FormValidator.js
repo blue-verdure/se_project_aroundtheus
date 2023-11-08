@@ -11,6 +11,26 @@ export default class FormValidator {
     this._setInputListeners();
   }
 
+  resetValidation() {
+    const inputList = Array.from(
+      this._formElement.querySelectorAll(this._options.inputSelector)
+    );
+    const button = this._formElement.querySelector(
+      this._options.submitButtonSelector
+    );
+    inputList.forEach((input) => {
+      input.classList.remove(this._options.inputErrorClass);
+    });
+    const errorList = Array.from(
+      this._formElement.querySelectorAll(this._options.errorClass)
+    );
+    errorList.forEach((error) => {
+      error.textContent = "";
+    });
+    button.classList.add(this._options.inactiveButtonClass);
+    button.disabled = true;
+  }
+
   _setInputListeners() {
     const inputList = Array.from(
       this._formElement.querySelectorAll(this._options.inputSelector)
