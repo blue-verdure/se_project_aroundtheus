@@ -70,14 +70,18 @@ function closeModal(modal) {
   page.removeEventListener("keydown", handleEscClose);
   modal.removeEventListener("click", handlePopupClose);
 }
+
+function createCard(data) {
+  const galleryItem = new Card(data, "#item__template", handleImageClick);
+  return galleryItem.getElement();
+}
 function handleAddSubmit(evt) {
   evt.preventDefault();
-  const newGalleryItem = new Card(
-    { name: placeInput.value, link: linkInput.value },
-    "#item__template",
-    handleImageClick
-  );
-  gallery.prepend(newGalleryItem.getElement());
+  const newGalleryItem = createCard({
+    name: placeInput.value,
+    link: linkInput.value,
+  });
+  gallery.prepend(newGalleryItem);
   closeModal(modalAdd);
   evt.target.reset();
 }
@@ -95,8 +99,7 @@ function handleImageClick(name, link) {
   openModal(imgPreview);
 }
 initialCards.forEach((item) => {
-  const galleryItem = new Card(item, "#item__template", handleImageClick);
-  gallery.append(galleryItem.getElement());
+  gallery.append(createCard(item));
 });
 
 editButton.addEventListener("click", () => {

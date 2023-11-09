@@ -1,9 +1,24 @@
+//FormValidator Class
+//Adds validation to a form element
+//It takes two parameters:
+//options: An object that contains the selectors and classes for the form
+//formElement: The form element that will be validated
+
 export default class FormValidator {
   constructor(options, formElement) {
     this._options = options;
     this._formElement = formElement;
+    //List of all input elements in the form
+    this._inputList = Array.from(
+      this._formElement.querySelectorAll(this._options.inputSelector)
+    );
+    //The submit button element
+    this._button = this._formElement.querySelector(
+      this._options.submitButtonSelector
+    );
   }
 
+  //Adds submit event listener and calls _setInputListeners
   enableValidation() {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
@@ -11,52 +26,47 @@ export default class FormValidator {
     this._setInputListeners();
   }
 
-  resetValidation() {
-    const inputList = Array.from(
-      this._formElement.querySelectorAll(this._options.inputSelector)
+  //Hides the error message and removes the error class from the input element
+  _hideInputError(inputElement) {
+    const errorElement = this._formElement.querySelector(
+      `#${inputElement.id}-error`
     );
-    const button = this._formElement.querySelector(
-      this._options.submitButtonSelector
-    );
-    inputList.forEach((input) => {
-      input.classList.remove(this._options.inputErrorClass);
-    });
-    const errorList = Array.from(
-      this._formElement.querySelectorAll(this._options.errorClass)
-    );
-    errorList.forEach((error) => {
-      error.textContent = "";
-    });
-    button.classList.add(this._options.inactiveButtonClass);
-    button.disabled = true;
+    errorElement.textContent = "";
+    inputElement.classList.remove(this._options.inputErrorClass);
+    errorElement.classList.remove(this._options.errorClass);
   }
 
+  //Resets the form to its initial state
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((input) => {
+      this._hideInputError(input);
+    });
+  }
+
+  //Adds input event listeners that check validity and set button state to all input elements.
   _setInputListeners() {
-    const inputList = Array.from(
-      this._formElement.querySelectorAll(this._options.inputSelector)
-    );
-    const button = this._formElement.querySelector(
-      this._options.submitButtonSelector
-    );
-    this._toggleButtonState(inputList, button);
-    inputList.forEach((input) => {
+    this._toggleButtonState();
+    this._inputList.forEach((input) => {
       input.addEventListener("input", () => {
         this._checkValidity(input);
-        this._toggleButtonState(inputList, button);
+        this._toggleButtonState();
       });
     });
   }
 
-  _toggleButtonState(inputList, button) {
-    if (inputList.some((input) => !input.validity.valid)) {
-      button.classList.add(this._options.inactiveButtonClass);
-      button.disabled = true;
+  //Toggles the submit button state based on the validity of the input elements.
+  _toggleButtonState() {
+    if (this._inputList.some((input) => !input.validity.valid)) {
+      this._button.classList.add(this._options.inactiveButtonClass);
+      this._button.disabled = true;
     } else {
-      button.classList.remove(this._options.inactiveButtonClass);
-      button.disabled = false;
+      this._button.classList.remove(this._options.inactiveButtonClass);
+      this._button.disabled = false;
     }
   }
 
+  //Checks the validity of an input element and displays an error message if it is invalid.
   _checkValidity(inputElement) {
     const errorElement = this._formElement.querySelector(
       `#${inputElement.id}-error`
