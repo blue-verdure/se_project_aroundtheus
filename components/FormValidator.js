@@ -27,10 +27,7 @@ export default class FormValidator {
   }
 
   //Hides the error message and removes the error class from the input element
-  _hideInputError(inputElement) {
-    const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`
-    );
+  _hideInputError(inputElement, errorElement) {
     errorElement.textContent = "";
     inputElement.classList.remove(this._options.inputErrorClass);
     errorElement.classList.remove(this._options.errorClass);
@@ -46,7 +43,7 @@ export default class FormValidator {
   resetValidation() {
     this._disableButton();
     this._inputList.forEach((input) => {
-      this._hideInputError(input);
+      this._hideInputError(input, this._getErrorElement(input));
     });
   }
 
@@ -72,11 +69,14 @@ export default class FormValidator {
     }
   }
 
+  //Gets error element from the input element
+  _getErrorElement(inputElement) {
+    return this._formElement.querySelector(`#${inputElement.id}-error`);
+  }
+
   //Checks the validity of an input element and displays an error message if it is invalid.
   _checkValidity(inputElement) {
-    const errorElement = this._formElement.querySelector(
-      `#${inputElement.id}-error`
-    );
+    const errorElement = this._getErrorElement(inputElement);
     if (!inputElement.validity.valid) {
       errorElement.textContent = inputElement.validationMessage;
       inputElement.classList.add(this._options.inputErrorClass);
