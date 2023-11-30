@@ -27,7 +27,7 @@ export default class Card {
 
   // Toggles the like icon.
   _handleLikeClick() {
-    this._icon.classList.toggle("gallery__icon_active");
+    this._icon.classList.toggle("gallery__like-icon_active");
   }
 
   // Deletes the card element.
@@ -42,7 +42,7 @@ export default class Card {
       .querySelector(this._selector)
       .content.querySelector(".gallery__item")
       .cloneNode(true);
-    this._icon = this._element.querySelector(".gallery__icon");
+    this._icon = this._element.querySelector(".gallery__like-icon");
     this._deleteIcon = this._element.querySelector(".gallery__delete-icon");
     this._image = this._element.querySelector(".gallery__image");
     this._setEventListeners();

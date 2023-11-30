@@ -40,7 +40,7 @@
   overflow: hidden;
   max-width: calc(100% - 63px);
 }
-.gallery__icon {
+.gallery__like-icon {
   margin: 31px 20px 30px 0px;
   width: 21px;
   height: 18px;
@@ -48,7 +48,7 @@
   transition-duration: 1s;
   transition-timing-function: ease-in-out;
 }
-.gallery__icon:hover {
+.gallery__like-icon:hover {
   opacity: 0.5;
 }
 .gallery__button {
@@ -71,7 +71,7 @@
   top: 20px;
   z-index: 2;
 }
-.gallery__icon_active {
+.gallery__like-icon_active {
   content: url("../images/heart_active.svg");
 }
 @media screen and (max-width: 1100px) {

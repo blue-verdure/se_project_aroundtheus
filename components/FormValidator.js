@@ -36,9 +36,15 @@ export default class FormValidator {
     errorElement.classList.remove(this._options.errorClass);
   }
 
+  //Disables the button
+  _disableButton() {
+    this._button.classList.add(this._options.inactiveButtonClass);
+    this._button.disabled = true;
+  }
+
   //Resets the form to its initial state
   resetValidation() {
-    this._toggleButtonState();
+    this._disableButton();
     this._inputList.forEach((input) => {
       this._hideInputError(input);
     });
@@ -58,7 +64,7 @@ export default class FormValidator {
   //Toggles the submit button state based on the validity of the input elements.
   _toggleButtonState() {
     if (this._inputList.some((input) => !input.validity.valid)) {
-      this._button.classList.add(this._options.inactiveButtonClass);
+      this._disableButton();
       this._button.disabled = true;
     } else {
       this._button.classList.remove(this._options.inactiveButtonClass);
