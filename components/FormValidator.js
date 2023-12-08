@@ -82,9 +82,7 @@ export default class FormValidator {
       inputElement.classList.add(this._options.inputErrorClass);
       errorElement.classList.add(this._options.errorClass);
     } else {
-      errorElement.textContent = "";
-      inputElement.classList.remove(this._options.inputErrorClass);
-      errorElement.classList.remove(this._options.errorClass);
+      this._hideInputError(inputElement, errorElement);
     }
   }
 }
